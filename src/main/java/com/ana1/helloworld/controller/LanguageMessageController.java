@@ -4,8 +4,17 @@ import com.ana1.helloworld.model.LanguageMessage;
 import com.ana1.helloworld.service.LanguageMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 //Controller is an api where clients can submit requests
 
@@ -20,6 +29,19 @@ public class LanguageMessageController {
 
         return "Hello World";
     }
+
+
+
+    @GetMapping("/countries")
+    public  List<Object> getCountries() {
+        String url = "https://restcountries.com/v3.1/all";
+        RestTemplate restTemplate = new RestTemplate();
+
+        Object[] countries = restTemplate.getForObject(url, Object[].class);
+
+        return Arrays.asList(countries);
+    }
+
 
 
 

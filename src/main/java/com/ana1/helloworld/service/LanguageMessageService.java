@@ -26,12 +26,18 @@ public class LanguageMessageService implements ApplicationRunner{
 
 
 
-    //@PostConstruct //kad ovo ubacim izlazi greska
+
     public void run(ApplicationArguments args) {
         languageMessageRepository.save(new LanguageMessage(1, "Zdravo svete","Srpski"));
         languageMessageRepository.save(new LanguageMessage(2, "Ola mundo","Spanski"));
         languageMessageRepository.save(new LanguageMessage(3, "Bonjour monde","Francuski"));
         languageMessageRepository.save(new LanguageMessage(4, "Hallo welt","Nemacki"));
+        languageMessageRepository.save(new LanguageMessage(5, "Hello Wêreld","Afrikaans"));
+        languageMessageRepository.save(new LanguageMessage(6, "Kaixo Mundua","Basque"));
+        languageMessageRepository.save(new LanguageMessage(7, "Hola món","Catalan"));
+        languageMessageRepository.save(new LanguageMessage(8, "Hej Verden","Danish"));
+        languageMessageRepository.save(new LanguageMessage(9, "Sannu Duniya","Hausa"));
+        languageMessageRepository.save(new LanguageMessage(10, "Helló Világ","Hungarian"));
     }
 
     public List<LanguageMessage> findAll() {

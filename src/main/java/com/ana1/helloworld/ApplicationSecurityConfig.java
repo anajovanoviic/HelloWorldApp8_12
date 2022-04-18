@@ -33,10 +33,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests() //zelimo da autorizujemo zahteve
+                .antMatchers("/admin.html","/adminPage").hasRole(ADMIN.name())
                 .antMatchers("/css/*","/js/*","/hello-rest","/hello.html","/hello/{language}","/","index","/console/*").permitAll() // ovim urlovima se moze pristupiti bez autentifikacije
                 .antMatchers(SecurityConstants.H2_CONSOLE)
                 .permitAll()
-                .antMatchers("/admin.html","/adminPage").hasRole(ADMIN.name())
                 .anyRequest() // bilo koji zahtev
                 .authenticated() //mora bit autentifikovan - klijent mora da obezbedi usernam i passw
                 .and()
