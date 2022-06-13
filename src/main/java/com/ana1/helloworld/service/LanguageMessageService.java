@@ -1,10 +1,12 @@
 package com.ana1.helloworld.service;
 
+import com.ana1.helloworld.exception.LanguageMessageNotFound;
 import com.ana1.helloworld.model.LanguageMessage;
 import com.ana1.helloworld.repository.LanguageMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -46,8 +48,16 @@ public class LanguageMessageService implements ApplicationRunner{
 
     public List<LanguageMessage> findByLanguage(@PathVariable String language) {return languageMessageRepository.findByLanguage(language);}
 
+    /*
     public LanguageMessage getMessageById(int id) {
         return languageMessageRepository.findById(id).get();
+    }
+    */
+
+
+
+    public LanguageMessage getMessageById(int id) {
+        return languageMessageRepository.findById(id).orElseThrow(()-> new LanguageMessageNotFound("Language message not found with id "+ id));
     }
 
     public void saveOrUpdate(LanguageMessage languageMessage) {

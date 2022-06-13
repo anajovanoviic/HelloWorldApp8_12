@@ -1,5 +1,7 @@
 package com.ana1.helloworld.controller;
 
+import com.ana1.helloworld.exception.ApiRequestException;
+import com.ana1.helloworld.exception.CustomException;
 import com.ana1.helloworld.model.LanguageMessage;
 import com.ana1.helloworld.service.LanguageMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,15 +78,28 @@ public class LanguageMessageController {
 
     @GetMapping("/translations")
     public List<LanguageMessage> getAllTranslations() {
-        return languageMessageService.findAll();
+        throw new ApiRequestException("Oops cannot get all students with custom exception");
+        //throw new IllegalStateException("Oops cannot get all language messages");
+        //return languageMessageService.findAll();
 
     }
 
+/*
+    @GetMapping("/translations/{id}")
+    public LanguageMessage getMessage(@PathVariable("id") int id) {
+        return languageMessageService.getMessageById(id);
+    }
+*/
 
     @GetMapping("/translations/{id}")
     public LanguageMessage getMessage(@PathVariable("id") int id) {
         return languageMessageService.getMessageById(id);
     }
+
+   /* @RequestMapping("/translations/{id}")
+    public LanguageMessage getMessage(@PathVariable("id") int id) {
+        return languageMessageService.getMessageById(id);
+    }*/
 
     @DeleteMapping("/translations/{id}")
     public void deleteMessage(@PathVariable("id") int id) {
