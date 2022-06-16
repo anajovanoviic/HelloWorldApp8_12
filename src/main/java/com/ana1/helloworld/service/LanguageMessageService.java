@@ -18,6 +18,12 @@ import java.util.List;
 @Service
 public class LanguageMessageService implements ApplicationRunner{
 
+    public String getWelcomeMessage(String name) {
+        return String.format("Welcome %s!", name);
+        //return String.format("Welcome %s! molim lepo", name); ovo prolazi i zato test nije dobar
+
+    }
+
     @Autowired
     LanguageMessageRepository languageMessageRepository;
 
@@ -48,18 +54,19 @@ public class LanguageMessageService implements ApplicationRunner{
 
     public List<LanguageMessage> findByLanguage(@PathVariable String language) {return languageMessageRepository.findByLanguage(language);}
 
-    /*
+
     public LanguageMessage getMessageById(int id) {
         return languageMessageRepository.findById(id).get();
     }
-    */
 
 
 
+
+    /*
     public LanguageMessage getMessageById(int id) {
         return languageMessageRepository.findById(id).orElseThrow(()-> new LanguageMessageNotFound("Language message not found with id "+ id));
     }
-
+*/
     public void saveOrUpdate(LanguageMessage languageMessage) {
         languageMessageRepository.save(languageMessage);
     }

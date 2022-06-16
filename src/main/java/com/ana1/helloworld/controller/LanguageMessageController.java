@@ -1,22 +1,11 @@
 package com.ana1.helloworld.controller;
 
-import com.ana1.helloworld.exception.ApiRequestException;
-import com.ana1.helloworld.exception.CustomException;
 import com.ana1.helloworld.model.LanguageMessage;
 import com.ana1.helloworld.service.LanguageMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 
 //Controller is an api where clients can submit requests
 
@@ -24,24 +13,55 @@ import java.net.URLEncoder;
 public class LanguageMessageController {
 
     @Autowired
-    LanguageMessageService languageMessageService;
+    private LanguageMessageService languageMessageService;
+
+    /*
+    @GetMapping("/welcomeForTest")
+    public String welcomeForTest() {
+        return "Welcome";
+    }
+*/
+
+    public LanguageMessageController(LanguageMessageService languageMessageService) {
+        this.languageMessageService = languageMessageService;
+    }
+
+
+    @GetMapping("/welcomeForTest")
+    public String welcomeForTest(@RequestParam(defaultValue = "Stranger") String name) {
+        return languageMessageService.getWelcomeMessage(name);
+
+    }
+
+
+/*
+    public void boolean1(boolean param) {
+        if(param == false) {
+            throw new IllegalArgumentException("param cannot be false");
+
+        }
+        else {
+            System.out.println("x = 5" );
+        }
+    }
+
+ */
+
+    @GetMapping("/helloTEST")
+    public String helloTEST(@RequestParam(name = "name", defaultValue = "World") String name) {
+        return String.format("Hello, %s", name);
+    }
+/*
+    public String hello(String name) {
+        return String.format("Hello, %s", name);
+    }
+
+*/
 
     @GetMapping("/hello-rest")
     public String welcome() {
 
         return "Hello World";
-    }
-
-
-
-    @GetMapping("/countries")
-    public  List<Object> getCountries() {
-        String url = "https://restcountries.com/v3.1/all";
-        RestTemplate restTemplate = new RestTemplate();
-
-        Object[] countries = restTemplate.getForObject(url, Object[].class);
-
-        return Arrays.asList(countries);
     }
 
 
@@ -78,9 +98,9 @@ public class LanguageMessageController {
 
     @GetMapping("/translations")
     public List<LanguageMessage> getAllTranslations() {
-        throw new ApiRequestException("Oops cannot get all students with custom exception");
+        //throw new ApiRequestException("Oops cannot get all students with custom exception");
         //throw new IllegalStateException("Oops cannot get all language messages");
-        //return languageMessageService.findAll();
+        return languageMessageService.findAll();
 
     }
 
